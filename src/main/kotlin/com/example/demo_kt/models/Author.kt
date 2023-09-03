@@ -1,5 +1,6 @@
 package com.example.demo_kt.models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.persistence.*
 import java.time.LocalDate
@@ -14,6 +15,9 @@ data class Author(
     @Column(name = "author_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     var author_id: Long = 0L,
+
+    @JsonIgnore @ManyToMany(mappedBy = "authors")
+    private var books: Set<Book>? = HashSet(),
 
     @JsonProperty("author_name")
     @Column(name = "name", length = 100)

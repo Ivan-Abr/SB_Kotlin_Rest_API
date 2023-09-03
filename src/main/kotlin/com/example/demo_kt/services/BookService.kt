@@ -53,15 +53,15 @@ class BookService(
 //        check(exists) { "Author with id" + AuthorId + "does not exist" }
 //        return bookRepository.findBookByAuthor_id(AuthorId)
 //    }
-//
-//
-//    fun assignAuthorToBook(BookId: Long?, AuthorId: Long?): Book? {
-//        var authors: MutableSet<Author?>? = null
-//        val book = bookRepository.findById(BookId!!).get()
-//        val author: Author = authorRepository.findById(AuthorId).get()
-//        authors = book.authors
-//        authors!!.add(author)
-//        book.setAuthors(authors)
-//        return bookRepository.save(book)
-//}
+
+
+    fun assignAuthorToBook(BookId: Long, AuthorId: Long): Book? {
+        var authors: MutableSet<Author>
+        val book = bookRepository.findById(BookId).get()
+        val author: Author = authorRepository.findById(AuthorId).get()
+        authors = book.authors as MutableSet<Author>
+        authors.add(author)
+        book.authors = (authors)
+        return bookRepository.save(book)
+}
 }

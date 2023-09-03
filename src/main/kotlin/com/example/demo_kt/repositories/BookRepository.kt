@@ -14,10 +14,13 @@ interface BookRepository: JpaRepository<Book, Long>
     @Query("select b from Book b where b.name = ?1")
     fun findBookByName(name: String?): Optional<Book>
 
-//        @Query("""SELECT b FROM Book b
-//    INNER JOIN Author_Book ab ON ab.book_id =  b.book_id
+
+
+
+//    @Query("""SELECT b FROM Book b
+//    INNER JOIN author_book ab ON ab.book_id =  b.book_id
 //    INNER JOIN Author a ON a.author_id = ab.author_id
 //    WHERE a.author_id = 1
 //    """)
-//    fun findBookByAuthor_id(AuthorId: Long): List<Book>?
+//    fun findBookByAuthor_id(AuthorId: Long): List<Book>
 }

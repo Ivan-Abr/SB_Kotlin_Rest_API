@@ -16,17 +16,21 @@ class AuthorConfig {
         return CommandLineRunner {
             val pushkin = Author(
                 1L,
+                null,
                 "Pushkin",
                 "Pushkin@mail.ru",
                 LocalDate.of(1799, Month.JUNE, 6),
-                36
+                34
+
             )
             val tolstoy = Author(
                 2L,
+                null,
                 "Tolstoy",
                 "Tolstoy@mail.ru",
                 LocalDate.of(1000, Month.APRIL, 3),
-                48
+                42
+
             )
             repository.saveAll(
                 listOf(pushkin, tolstoy)

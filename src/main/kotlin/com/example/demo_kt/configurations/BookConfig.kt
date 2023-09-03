@@ -17,13 +17,15 @@ class BookConfig {
         return CommandLineRunner {
             val buratino = Book(
                 1L,
+                null,
                 "Buratino",
                 "PitRes",
-                LocalDate.of(1896, Month.APRIL, 13),
-                "Priklucheniya derevyanogo"
+                LocalDate.of(1896, Month.APRIL, 13)
+
             )
             val goldenFish = Book(
                     2L,
+                    null,
                     "Golden Fish",
                     "MosPechat",
                     LocalDate.of(1987, Month.FEBRUARY, 13),

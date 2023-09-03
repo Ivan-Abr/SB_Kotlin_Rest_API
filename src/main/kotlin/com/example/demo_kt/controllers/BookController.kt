@@ -30,18 +30,18 @@ class BookController(private var bookService: BookService) {
     }
 
     @PutMapping(path = ["{BookId}"])
-    fun updateStudent(
-            @PathVariable("BookId") BookId: Long?,
-            @RequestParam(required = false) name: String?,
-            @RequestParam(required = false) annotation: String?) {
-        bookService.updateBook(BookId!!, name!!, annotation!!)
+    fun updateBook(
+            @PathVariable("BookId") BookId: Long,
+            @RequestParam(required = false) name: String,
+            @RequestParam(required = false) annotation: String) {
+        bookService.updateBook(BookId, name, annotation)
     }
 
-//    @PutMapping(path = ["{BookId}/author/{AuthorId}"])
-//    fun assignAuthorToBook(
-//            @PathVariable BookId: Long?,
-//            @PathVariable AuthorId: Long?
-//    ): Book? {
-//        return bookService.assignAuthorToBook(BookId, AuthorId)
-//    }
+    @PutMapping(path = ["{BookId}/author/{AuthorId}"])
+    fun assignAuthorToBook(
+            @PathVariable BookId: Long,
+            @PathVariable AuthorId: Long
+    ): Book? {
+        return bookService.assignAuthorToBook(BookId, AuthorId)
+    }
 }
