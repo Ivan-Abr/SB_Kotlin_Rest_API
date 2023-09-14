@@ -17,19 +17,19 @@ class BookService(
 
     fun getBooks():List<Book>{return bookRepository.findAll() as List<Book> }
 
-    fun getBookById(book_id:Long): Optional<Book> {
+    fun getBookById(book_id: Long): Optional<Book> {
         var exist:Boolean = bookRepository.existsById(book_id)
         if (!exist)
             throw IllegalStateException("Book with id: " + book_id + " does not exist!")
         return bookRepository.findById(book_id)
     }
 
-    fun addNewBook(book: Book): Boolean {
+    fun addNewBook(book: Book?): Book? {
+        if (book == null) return null
         val bookOptional = bookRepository
                 .findBookByName(book.name)
-        check(!bookOptional!!.isPresent) { "name taken" }
-        bookRepository.save(book)
-        return true
+        check(!bookOptional.isPresent) { "name taken" }
+        return bookRepository.save(book)
     }
 
     fun deleteBook(BookId: Long) {
@@ -39,14 +39,14 @@ class BookService(
     }
 
     @Transactional
-    fun updateBook(BookId: Long, name: String, annot: String): Boolean {
+    fun updateBook(BookId: Long, name: String, annot: String): Book? {
         val book = bookRepository.findById(BookId)
                 .orElseThrow { java.lang.IllegalStateException("student with id" + BookId + "does not exist") }
         if (name != null && name.length > 0 && book.name != name) {
             book.name = name
         }
         book.annot = annot
-        return true
+        return book
     }
 //    fun getBookByAuthorId(AuthorId: Long): List<Book?>? {
 //        val exists: Boolean = authorRepository.existsById(AuthorId)

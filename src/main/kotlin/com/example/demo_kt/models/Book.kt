@@ -21,7 +21,7 @@ data class Book(
         inverseJoinColumns = [JoinColumn(name = "author_id")]
     ) var authors: Set<Author>? = HashSet(),
 
-    @JsonProperty("name")
+    @JsonProperty("book_name")
     @Column(name = "name", length = 100)
     var name: String = "",
 
@@ -38,7 +38,7 @@ data class Book(
     var annot: String = "",
 
     ) {
-    fun Book() {}
+    //fun Book() {}
 //    constructor(book_id: Long, name: String, publisher: String, dob: LocalDate, annot: String) {
 //        this.book_id = book_id
 //        this.name = name

@@ -20,12 +20,12 @@ class AuthorService(private var authorRepository: AuthorRepository) {
         return authorRepository.findById(authorId)
     }
 
-    fun addNewAuthor(author: Author): Boolean {
+    fun addNewAuthor(author: Author): Author? {
         val authorOptional: Optional<Author?>? = authorRepository
             .findAuthorByEmail(author.email)
         check(!authorOptional!!.isPresent) { "email.taken" }
-        authorRepository.save(author)
-        return true
+        return authorRepository.save(author)
+
     }
 
     fun deleteAuthor(AuthorId: Long) {

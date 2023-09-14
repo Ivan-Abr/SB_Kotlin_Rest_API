@@ -82,11 +82,27 @@ class AuthorControllerTest(
     @Throws(java.lang.Exception::class)
 
     fun registerNewAuthor() {
-        Mockito.`when`(authorService.addNewAuthor(any(Author::class.java))).thenReturn(author)    }
+        Mockito.`when`(authorService.addNewAuthor(any(Author::class.java))).thenReturn(author)
+
+        val response = mockMvc.perform(
+            MockMvcRequestBuilders.post("/api/v1/author")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(author))
+        )
+        response.andExpect(MockMvcResultMatchers.status().isOk)
+            .andReturn().response.getContentAsString()
+    }
 
     @Test
     @Throws(java.lang.Exception::class)
     fun deleteAuthor() {
+        var authorId = 1L
+        Mockito.doNothing().`when`(authorService).deleteAuthor(authorId)
+        val response = mockMvc.perform(
+            MockMvcRequestBuilders.delete("/api/v1/author/1")
+                .contentType(MediaType.APPLICATION_JSON)
+        )
+        response.andExpect(MockMvcResultMatchers.status().isOk)
     }
 
     @Test
