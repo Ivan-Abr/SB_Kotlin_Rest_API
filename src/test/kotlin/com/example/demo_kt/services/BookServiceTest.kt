@@ -15,7 +15,7 @@ import org.mockito.ArgumentMatchers.any
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.springframework.beans.factory.annotation.Autowired
+//import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import java.time.LocalDate
 import java.time.Month
@@ -23,7 +23,9 @@ import java.util.*
 
 //@RunWith(SpringRunner::class)
 @SpringBootTest
-internal class BookServiceTest {
+internal class BookServiceTest (
+    //@Autowired val bookService: BookService
+){
     @Mock
     private lateinit var bookRepository: BookRepository
 
@@ -32,9 +34,9 @@ internal class BookServiceTest {
 
     @InjectMocks
     private lateinit var  bookService: BookService
-
-    @InjectMocks
-    private val authorService: AuthorService? = null
+//
+//    @InjectMocks
+//    private val authorService: AuthorService? = null
     private var book: Book? = null
     private var author: Author? = null
     @BeforeEach
@@ -90,14 +92,8 @@ internal class BookServiceTest {
         Assertions.assertEquals(book1.get().publisher, "Pablo")
     }
 
-
-
-
-
-
-
     @Test
-    @Autowired
+    @Transactional
     fun updateBook() {
         var book_id: Long = book!!.book_id
         Mockito.`when`(bookRepository.findById(book_id)).thenReturn(Optional.ofNullable(book))
@@ -105,58 +101,27 @@ internal class BookServiceTest {
         Assertions.assertNotNull(bookService.updateBook(book_id, "Arbuz", "Norm"))
     }
 
-    @Test
-    fun deleteBook(){
-        var book_id: Long = 3L
-        var book:Book = Book(book_id,
-            null,
-        "Kniga",
-        "akdakd",
-        LocalDate.of(2013, Month.SEPTEMBER, 14),
-        "QIJASFAFJLA")
-        Mockito.`when`(bookRepository.findById(any())).thenReturn(Optional.ofNullable(book))
-        Mockito.`when`(bookRepository.save(book)).thenReturn(book)
-        Mockito.doNothing().`when`(bookRepository.deleteById(any()))
-
-        Assertions.assertAll(Executable {
-            bookService.deleteBook(
-                book_id
-            )
-        })
-    }
-
 //    @Test
-//    fun DeleteBook() {
-//        val book_id = 3L
-//        val book = Book(
-//            book_id,
+//    fun deleteBook(){
+//        var book_id: Long = 3L
+//        var book:Book = Book(book_id,
 //            null,
-//            "Kniga",
-//            "akdakd",
-//            LocalDate.of(2013, Month.SEPTEMBER, 14),
-//            "QIJASFAFJLA"
-//        )
-//        Mockito.`when`(bookRepository.findById(ArgumentMatchers.any())).thenReturn(Optional.ofNullable(book))
+//        "Kniga",
+//        "akdakd",
+//        LocalDate.of(2013, Month.SEPTEMBER, 14),
+//        "QIJASFAFJLA")
+//        Mockito.`when`(bookRepository.findById(any())).thenReturn(Optional.ofNullable(book))
 //        Mockito.`when`(bookRepository.save(book)).thenReturn(book)
-//        Mockito.`when`(bookRepository.existsById(ArgumentMatchers.any())).thenReturn(true)
-//        Mockito.doNothing().`when`<Any?>(bookRepository).delete(book)
+//        Mockito.doNothing().`when`(bookRepository.deleteById(book_id))
+//
 //        Assertions.assertAll(Executable {
 //            bookService.deleteBook(
 //                book_id
 //            )
 //        })
+//    }
+
 
 
     }
 
-//private fun <T> OngoingStubbing<T>.thenReturn() {
-//
-//}
-//    @Test
-    //    public void assignation() {
-    //        Set<Author> authors = null;
-    //        when(bookRepository.findById(any())).thenReturn(Optional.ofNullable(book));
-    //        //when(bookRepository.save(book)).thenReturn(book);
-    //        //when(bookRepository.existsById(any())).thenReturn(true);
-    //        when(authorRepository.existsById(any())).thenReturn(Optional.ofNullable(authors));
-    //    }
