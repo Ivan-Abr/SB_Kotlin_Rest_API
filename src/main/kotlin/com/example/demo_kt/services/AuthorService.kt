@@ -15,8 +15,9 @@ class AuthorService(private var authorRepository: AuthorRepository) {
     fun getAuthors(): List<Author> { return authorRepository.findAll() }
 
     fun getAuthorById(authorId: Long): Optional<Author> {
-        val exists = authorRepository.existsById(authorId)
-        check(exists) { "Author with id" + authorId + "does not exist" }
+        val exist = authorRepository.existsById(authorId)
+        if (!exist)
+            throw IllegalStateException("Author with id" + authorId + "does not exist")
         return authorRepository.findById(authorId)
     }
 

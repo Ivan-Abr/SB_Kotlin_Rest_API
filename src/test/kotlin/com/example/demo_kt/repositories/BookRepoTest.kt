@@ -1,7 +1,6 @@
-package com.example.demo_kt.repo_tests
+package com.example.demo_kt.repositories
 
 import com.example.demo_kt.models.Book
-import com.example.demo_kt.repositories.BookRepository
 import jakarta.transaction.Transactional
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test

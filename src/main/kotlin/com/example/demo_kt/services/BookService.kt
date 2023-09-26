@@ -12,36 +12,40 @@ import java.util.*
 @Service
 class BookService(
     private var bookRepository: BookRepository,
-    private val authorRepository: AuthorRepository
-){
+    private val authorRepository: AuthorRepository,
+) {
 
-    fun getBooks():List<Book>{return bookRepository.findAll() as List<Book> }
+    fun getBooks(): List<Book> {
+        return bookRepository.findAll() as List<Book>
+    }
 
     fun getBookById(book_id: Long): Optional<Book> {
-        var exist:Boolean = bookRepository.existsById(book_id)
+        var exist: Boolean = bookRepository.existsById(book_id)
         if (!exist)
-            throw IllegalStateException("Book with id: " + book_id + " does not exist!")
+            throw IllegalStateException("Book with id: $book_id does not exist!")
         return bookRepository.findById(book_id)
     }
 
     fun addNewBook(book: Book?): Book? {
         if (book == null) return null
         val bookOptional = bookRepository
-                .findBookByName(book.name)
+            .findBookByName(book.name)
         check(!bookOptional.isPresent) { "name taken" }
         return bookRepository.save(book)
     }
 
     fun deleteBook(BookId: Long) {
         val exists = bookRepository.existsById(BookId)
-        check(exists) { "student with id" + BookId + "does not exist" }
+        if (!exists) {
+            throw IllegalArgumentException("student with id" + BookId + "does not exist")
+        }
         bookRepository.deleteById(BookId)
     }
 
     @Transactional
     fun updateBook(BookId: Long, name: String, annot: String): Book? {
         val book = bookRepository.findById(BookId)
-                .orElseThrow { java.lang.IllegalStateException("student with id" + BookId + "does not exist") }
+            .orElseThrow { java.lang.IllegalStateException("student with id" + BookId + "does not exist") }
         if (name != null && name.length > 0 && book.name != name) {
             book.name = name
         }
@@ -55,13 +59,12 @@ class BookService(
 //    }
 
 
-    fun assignAuthorToBook(BookId: Long, AuthorId: Long): Book? {
-        var authors: MutableSet<Author>
-        val book = bookRepository.findById(BookId).get()
-        val author: Author = authorRepository.findById(AuthorId).get()
-        authors = book.authors as MutableSet<Author>
-        authors.add(author)
-        book.authors = (authors)
+    fun assignAuthorToBook(bookId: Long, authorId: Long): Book? {
+        val book = bookRepository.findById(bookId).get()
+        val author = authorRepository.findById(authorId).get()
+        book.authors = (book.authors as MutableSet<Author>? ?: HashSet()).apply {
+            add(author)
+        }
         return bookRepository.save(book)
-}
+    }
 }
