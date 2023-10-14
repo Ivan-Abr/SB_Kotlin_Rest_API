@@ -2,6 +2,7 @@ package com.example.demo_kt.configurations
 
 import com.example.demo_kt.models.Book
 import com.example.demo_kt.repositories.BookRepository
+import com.example.demo_kt.services.BookService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
 import org.springframework.context.annotation.Bean
@@ -13,7 +14,9 @@ import java.time.Month
 @Configuration
 class BookConfig {
     @Bean
-    fun commandLineRunner(@Autowired repository: BookRepository): CommandLineRunner {
+    fun commandLineRunner(@Autowired repository: BookRepository,
+        @Autowired service: BookService
+    ): CommandLineRunner {
         return CommandLineRunner {
             val buratino = Book(
                 1L,
@@ -34,6 +37,7 @@ class BookConfig {
             repository.saveAll(
                     listOf(buratino, goldenFish)
             )
+            //service.assignAuthorToBook(1L,1L)
         }
     }
 }

@@ -1,8 +1,12 @@
 package com.example.demo_kt.models
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.persistence.*
 import java.time.LocalDate
+
+
+@Schema(description = "Model for book")
 
 @Entity
 @Table(name="book")
@@ -21,9 +25,12 @@ data class Book(
         inverseJoinColumns = [JoinColumn(name = "author_id")]
     ) var authors: Set<Author>? = HashSet(),
 
+
     @JsonProperty("book_name")
     @Column(name = "name", length = 100)
     var name: String = "",
+
+
 
     @JsonProperty("publisher")
     @Column(name = "publisher", length = 200)
@@ -36,6 +43,8 @@ data class Book(
     @JsonProperty("annotation")
     @Column(name = "annotation", length = 1000)
     var annot: String = "",
+
+
 
     ) {
     //fun Book() {}
