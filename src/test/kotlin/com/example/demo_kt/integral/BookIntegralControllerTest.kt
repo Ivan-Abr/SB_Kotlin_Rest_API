@@ -3,6 +3,7 @@ package com.example.demo_kt.integral
 import com.example.demo_kt.DemoKtApplication
 import com.example.demo_kt.models.Book
 import com.example.demo_kt.repositories.BookRepository
+import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -15,6 +16,7 @@ import org.springframework.test.context.TestPropertySource
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import java.time.LocalDate
 
@@ -23,12 +25,15 @@ import java.time.LocalDate
 @AutoConfigureMockMvc
 @TestPropertySource(locations = ["classpath:application-test.properties"])
 class IntegralTest( @Autowired private val mvc: MockMvc,
-                    @Autowired private val bookRepository: BookRepository) {
+                    @Autowired private val bookRepository: BookRepository,
+                    @Autowired private val objectMapper: ObjectMapper) {
 
     lateinit var book: Book
+    lateinit var book2: Book
     @BeforeEach
     fun initAndSave(){
-        book = Book(1L,null, "","", LocalDate.now(), "")
+        book = Book(1L,null, "fst_test","Spring", LocalDate.now(), "normal")
+        book2 = Book(2L,null,"sec_test","Spring", LocalDate.now(), "good")
         bookRepository.save(book)
     }
     @Test
@@ -52,7 +57,10 @@ class IntegralTest( @Autowired private val mvc: MockMvc,
     @Test
     @Throws(java.lang.Exception::class)
     fun postBook(){
-        mvc.perform(MockMvcRequestBuilders.post("/api/v1/book"))
+        mvc.perform(MockMvcRequestBuilders.post("/api/v1/book")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(book2)))
+            .andExpect(status().isOk())
     }
 
 
