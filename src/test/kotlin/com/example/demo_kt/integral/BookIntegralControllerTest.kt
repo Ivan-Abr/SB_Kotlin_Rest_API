@@ -63,5 +63,14 @@ class IntegralTest( @Autowired private val mvc: MockMvc,
             .andExpect(status().isOk())
     }
 
+    @Test
+    @Throws(java.lang.Exception::class)
+    fun updateBook(){
+        mvc.perform(MockMvcRequestBuilders
+            .put("/api/v1/book/1?name=testName&annotation=testAnnot")
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(MockMvcResultMatchers.status().isOk)
+    }
+
 
 }
