@@ -84,5 +84,14 @@ class IntegralTest( @Autowired private val mvc: MockMvc,
             .andExpect(status().isOk)
     }
 
+    @Test
+    @Throws(java.lang.Exception::class)
+    fun deleteBook(){
+        mvc.perform(MockMvcRequestBuilders.delete("/api/v1/book/1")
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk)
+    }
+
+
 
 }
