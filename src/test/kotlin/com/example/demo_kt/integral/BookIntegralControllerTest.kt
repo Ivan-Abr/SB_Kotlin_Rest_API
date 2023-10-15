@@ -34,12 +34,26 @@ class IntegralTest( @Autowired private val mvc: MockMvc,
     @Test
     @Throws(java.lang.Exception::class)
     fun getAllBooks(){
-
-
         mvc.perform(MockMvcRequestBuilders.get("/api/v1/book")
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk)
             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
     }
+
+    @Test
+    @Throws(java.lang.Exception::class)
+    fun getBookById(){
+        mvc.perform(MockMvcRequestBuilders.get("/api/v1/book/1")
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk)
+            .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+    }
+
+    @Test
+    @Throws(java.lang.Exception::class)
+    fun postBook(){
+        mvc.perform(MockMvcRequestBuilders.post("/api/v1/book"))
+    }
+
 
 }
