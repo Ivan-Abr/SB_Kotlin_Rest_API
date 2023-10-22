@@ -23,7 +23,7 @@ import java.time.LocalDate
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK, classes = [DemoKtApplication::class])
 @AutoConfigureMockMvc
 @TestPropertySource(locations = ["classpath:application-test.properties"])
-class IntegralTest( @Autowired private val mvc: MockMvc,
+class BookIntegralControllerTest( @Autowired private val mvc: MockMvc,
                     @Autowired private val bookRepository: BookRepository,
                     @Autowired private val authorRepository: AuthorRepository,
                     @Autowired private val objectMapper: ObjectMapper) {
