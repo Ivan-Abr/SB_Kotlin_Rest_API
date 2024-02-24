@@ -10,8 +10,8 @@ import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 @Repository
 interface AnswerRepo: JpaRepository<Answer, Long> {
     @Query(
-        "SELECT  avg(a.question.markValue), l.layerName, org.orgName, mlst.year  from Answer AS a " +
-                "   LEFT JOIN Mark AS m ON a.question.markId = m.markId" +
+        "SELECT  avg(a.mark.markValue), l.layerName, org.orgName, mlst.year  from Answer AS a " +
+                "   LEFT JOIN Mark AS m ON a.mark.markId = m.markId" +
                 "   LEFT JOIN Question AS q ON m.question.questionId = q.questionId" +
                 "   LEFT JOIN Layer AS l ON q.layer.layerId = l.layerId" +
                 "   LEFT JOIN Organization as org On a.organization.orgId = org.orgId" +
@@ -21,8 +21,8 @@ interface AnswerRepo: JpaRepository<Answer, Long> {
     fun getAllByLayerOrg(layerId: Long, orgId: Long): Object
 
     @Query(
-        "SELECT  avg(a.question.markValue), f.factorShortName, org.orgName, mlst.year  from Answer AS a " +
-                "   LEFT JOIN Mark AS m ON a.question.markId = m.markId" +
+        "SELECT  avg(a.mark.markValue), f.factorShortName, org.orgName, mlst.year  from Answer AS a " +
+                "   LEFT JOIN Mark AS m ON a.mark.markId = m.markId" +
                 "   LEFT JOIN Question AS q ON m.question.questionId = q.questionId" +
                 "   LEFT JOIN Factor AS f ON q.factor.factorId = f.factorId" +
                 "   LEFT JOIN Organization as org On a.organization.orgId = org.orgId" +
@@ -32,8 +32,8 @@ interface AnswerRepo: JpaRepository<Answer, Long> {
     fun getAllByFactorOrg(factorId: Long, orgId: Long): Object
 
     @Query(
-        "SELECT  avg(a.question.markValue), l.layerName, f.factorShortName, org.orgName, mlst.year  from Answer AS a " +
-                "   LEFT JOIN Mark AS m ON a.question.markId = m.markId" +
+        "SELECT  avg(a.mark.markValue), l.layerName, f.factorShortName, org.orgName, mlst.year  from Answer AS a " +
+                "   LEFT JOIN Mark AS m ON a.mark.markId = m.markId" +
                 "   LEFT JOIN Question AS q ON m.question.questionId = q.questionId" +
                 "   LEFT JOIN Factor AS f ON q.factor.factorId = f.factorId" +
                 "   LEFT JOIN Layer AS l ON q.layer.layerId = l.layerId" +

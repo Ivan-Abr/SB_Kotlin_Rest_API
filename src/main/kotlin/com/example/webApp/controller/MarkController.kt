@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
-@Controller
+@RestController
 @CrossOrigin(origins = ["http://localhost:3000"])
 @RequestMapping("dm/v1/mark")
 class MarkController(private var markService: MarkService) {

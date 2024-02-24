@@ -25,4 +25,10 @@ class Factor(
     var factorShortName: String
 
 ) {
+
+    @get:JsonProperty("questionsIds")
+    val questionsIds: List<Long>?
+        get() {
+            return this.questions!!.map { question -> question!!.questionId  }
+        }
 }

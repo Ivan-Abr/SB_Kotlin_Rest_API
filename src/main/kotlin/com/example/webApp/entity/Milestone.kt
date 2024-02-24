@@ -1,5 +1,6 @@
 package com.example.webApp.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -20,6 +21,7 @@ data class Milestone (
     var milestoneId: Long = 0L,
 
     @OneToMany(mappedBy = "milestone")
+    @JsonIgnore
     var answers: Set<Answer?>? = HashSet(),
 
     @JsonProperty("date_from")

@@ -30,6 +30,7 @@ data class Organization(
     @JsonProperty("orgContacts")
     @Column(name = "orgContacts", length = 200)
     var orgContacts:String = ""
+
 ){
     override fun toString(): String {
         return "Organization(orgId=$orgId, orgName='$orgName', orgAnnot='$orgAnnot', orgContacts='$orgContacts')"

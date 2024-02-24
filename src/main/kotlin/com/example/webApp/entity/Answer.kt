@@ -1,5 +1,6 @@
 package com.example.webApp.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.persistence.*
 
@@ -8,20 +9,23 @@ import jakarta.persistence.*
 @Table(name = "answer")
 public class Answer(
     @Id
-        @JsonProperty("answer_id")
-        @Column(name = "answer_id")
-        var answerId: Long = 0L,
+        @JsonProperty("answerId")
+        @Column(name = "answerId")
+        var answerId: Long,
 
     @ManyToOne
-        @JoinColumn(name="mark_id")
-        var question: Mark? = null,
+    @JsonIgnore
+        @JoinColumn(name="markId")
+        var mark: Mark?,
 
     @ManyToOne
-        @JoinColumn(name="org_id")
-        var organization: Organization? = null,
+    @JsonIgnore
+        @JoinColumn(name="orgId")
+        var organization: Organization?,
 
     @ManyToOne
-        @JoinColumn(name="milestone_id")
+    @JsonIgnore
+        @JoinColumn(name="milestoneId")
         var milestone: Milestone?,
 
         //org_id
@@ -29,4 +33,22 @@ public class Answer(
         //mark_id
 ){
 
+
+    @get:JsonProperty("markId")
+    val markId: Long
+        get() {
+            return this.mark!!.markId;
+        }
+
+    @get:JsonProperty("orgId")
+    val orgId: Long
+        get() {
+            return this.organization!!.orgId
+        }
+
+    @get: JsonProperty("milestoneId")
+    val milestoneId: Long
+        get() {
+            return this.milestone!!.milestoneId
+        }
 }

@@ -22,6 +22,13 @@ data class Layer(
     var layerName: String
 
     ) {
+
+    @get:JsonProperty("questionsIds")
+    val questionsIds: List<Long>?
+        get() {
+            return this.questions?.map { question ->question!!.questionId  }
+        }
+
     override fun toString(): String {
         return "Layer(layerId=$layerId, marks=$questions, layerName='$layerName')"
     }

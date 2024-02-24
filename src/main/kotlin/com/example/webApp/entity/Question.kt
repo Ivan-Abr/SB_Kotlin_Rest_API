@@ -8,13 +8,13 @@ import jakarta.persistence.*
 @Table(name = "question")
 public class Question(
     @Id
-    @JsonProperty("question_id")
-    @Column(name = "question_id")
+    @JsonProperty("questionId")
+    @Column(name = "questionId")
     var questionId: Long = 0L,
 
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "layer_id")
+    @JoinColumn(name = "layerId")
     var layer: Layer? = null,
 
     @OneToMany
@@ -23,18 +23,40 @@ public class Question(
 
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "factor_id")
+    @JoinColumn(name = "factorId")
     var factor: Factor,
 
-    @JsonProperty("question_name")
-    @Column(name = "question_name", length = 100)
+    @JsonProperty("questionName")
+    @Column(name = "questionName", length = 100)
     var questionName: String = "",
 
-    @JsonProperty("question_annot")
-    @Column(name = "annot", length = 300)
+    @JsonProperty("questionAnnot")
+    @Column(name = "questionAnnot", length = 300)
     var questionAnnot: String = "",
 
 ) {
+
+    @get:JsonProperty("layerId")
+    val layerId: Long
+            get(){
+                return this.layer!!.layerId
+            }
+
+
+
+    @get:JsonProperty("marksIds")
+    val marksIds: List<Long>?
+    get(){
+        return this.marks!!.map { mark -> mark.markId }
+    }
+
+    @get:JsonProperty()
+    val facctorId: Long
+    get(){
+        return this.factor.factorId
+    }
+
+
 
 
     override fun toString(): String {

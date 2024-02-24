@@ -8,19 +8,19 @@ import jakarta.persistence.*
 @Table(name = "mark")
 class Mark (
     @Id
-    @JsonProperty("mark_id")
-    @Column(name = "mark_id")
+    @JsonProperty("markId")
+    @Column(name = "markId")
     var markId: Long,
 
-    @JsonProperty("mark_name")
-    @Column(name = "mark_name")
+    @JsonProperty("markName")
+    @Column(name = "markName")
     var markName: String,
 
-    @JsonProperty("mark_value")
-    @Column(name = "mark_value")
+    @JsonProperty("markValue")
+    @Column(name = "markValue")
     var markValue: Int,
 
-    @OneToMany(mappedBy = "question")
+    @OneToMany(mappedBy = "mark")
     @JsonIgnore
     var answers: Set<Answer>? = HashSet(),
 
@@ -29,4 +29,22 @@ class Mark (
     @JoinColumn(name = "question_id")
     var question: Question? = null,
 ){
+
+//    @get:JsonProperty("answerIds")
+//    val answerIds: List<Long>?
+//        get() {
+//            return this.answers?.map { answer -> answer.answerId }
+//        }
+
+
+    @get:JsonProperty("questionId")
+    val questionId: Long
+        get() {
+            return this.question!!.questionId;
+        }
+
+
+    override fun toString(): String {
+        return "Mark(markId=$markId, markName='$markName', markValue=$markValue, answers=$answers, question=$question)"
+    }
 }
