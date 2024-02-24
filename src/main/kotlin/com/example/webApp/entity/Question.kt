@@ -51,7 +51,7 @@ public class Question(
     }
 
     @get:JsonProperty()
-    val facctorId: Long
+    val factorId: Long
     get(){
         return this.factor.factorId
     }

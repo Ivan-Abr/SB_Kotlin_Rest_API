@@ -10,7 +10,7 @@ data class Organization(
     @Id
     @JsonProperty("orgId")
     @Column(name = "orgId")
-    var orgId: Long = 0L,
+    var orgId: Long,
 
 
     @OneToMany(mappedBy="organization")
@@ -21,15 +21,15 @@ data class Organization(
 
     @JsonProperty("orgName")
     @Column(name = "orgName", length = 100)
-    var orgName: String = "",
+    var orgName: String?,
 
     @JsonProperty("orgAnnot")
     @Column(name = "orgAnnot", length = 200)
-    var orgAnnot: String = "",
+    var orgAnnot: String?,
 
     @JsonProperty("orgContacts")
     @Column(name = "orgContacts", length = 200)
-    var orgContacts:String = ""
+    var orgContacts:String?
 
 ){
     override fun toString(): String {

@@ -39,7 +39,7 @@ class OrgService(private var orgRepo: OrgRepo,
     }
 
     @Transactional
-    fun updateOrg(orgId: Long, orgName: String, annot: String): Organization? {
+    fun updateOrg(orgId: Long, orgName: String?, annot: String?): Organization? {
         val organization = orgRepo.findById(orgId)
             .orElseThrow { java.lang.IllegalStateException("student with id" + orgId + "does not exist") }
         if (orgName != null && orgName.length > 0 && organization.orgName != orgName) {
